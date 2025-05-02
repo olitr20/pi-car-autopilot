@@ -12,9 +12,8 @@ from tensorflow.keras import mixed_precision
 mixed_precision.set_global_policy('mixed_float16')
 
 batch_size = 16
-res = 128
+res = 256
 initial_learn_rate = 1e-4
-transfer_learn_rate = 1e-6
 
 def build_initial_model():
     # Instantiate base model
@@ -73,7 +72,7 @@ def build_initial_model():
 
 class Model:
 
-    saved_weights = 'EfficientNet_128.h5'
+    saved_weights = 'EfficientNet_256.h5'
 
     def __init__(self):
         self.model = build_initial_model()
