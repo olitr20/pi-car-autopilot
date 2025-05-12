@@ -52,16 +52,10 @@ def build_initial_model(verbose = False):
                   outputs = [steering_output, speed_output],
                   name = 'resnet50v2')
     
-    # Reweight output heads
-    λ_steering = 1.0
-    λ_speed = 0.1
-    
     # Compile model
     model.compile(optimizer = tf.keras.optimizers.Adam(initial_learn_rate),
                   loss = {'steering': 'mse',
                           'speed': 'binary_crossentropy'},
-                  loss_weights={'steering': λ_steering,
-                                'speed': λ_speed},
                   metrics = {'steering': ['mae',
                                           tf.keras.metrics.R2Score(name='r2')],
                              'speed': ['accuracy']})
@@ -70,7 +64,7 @@ def build_initial_model(verbose = False):
 
 class Model:
 
-    saved_weights = 'resnet50v2_transfer.h5'
+    saved_weights = 'resnet50v2_unweighted.h5'
 
     def __init__(self):
         self.model = build_initial_model()

@@ -4,36 +4,17 @@ import os
 
 import tensorflow as tf
 from keras.models import load_model
-from keras.layers import Layer
-
-from tensorflow.keras import mixed_precision
-mixed_precision.set_global_policy('mixed_float16')
-
-
-class Cast(Layer):
-    def __init__(self, dtype, **kwargs):
-        super().__init__(**kwargs)
-        self.target_dtype = tf.dtypes.as_dtype(dtype)
-
-    def call(self, inputs):
-        return tf.cast(inputs, self.target_dtype)
-
-    def get_config(self):
-        cfg = super().get_config()
-        cfg.update({'dtype': self.target_dtype.name})
-        return cfg
-
+    
 
 class Model:
 
-    saved_model = 'EfficientNet_128.h5'
+    #saved_model = 'EfficientNetB0_128.h5'
+    saved_model = 'EfficientNetB0_128_init.h5'
 
     def __init__(self):
         model_path = os.path.join(os.path.dirname(__file__),
                                   self.saved_model)
-        self.model = load_model(model_path,
-                                custom_objects = {'Cast': Cast},
-                                compile = False)
+        self.model = load_model(model_path)
         self.model.summary()
 
     def preprocess(self, image):

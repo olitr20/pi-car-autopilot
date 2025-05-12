@@ -11,12 +11,12 @@ sys.path.insert(0, path)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, default='EfficientNet256')
+    parser.add_argument('--model', type=str, default='EfficientNetB0_new')
     parser.add_argument('--mode', type=str, default='test')
     parser.add_argument('--capture_src', type=int, default=0)
     parser.add_argument('--picar_config', type=str,
                         default='/home/pi/SunFounder_PiCar-V/remote_control/remote_control/driver/config')
-    parser.add_argument('--duration', type=int, default=300)
+    parser.add_argument('--duration', type=int, default=10)
     parser.add_argument('--max_speed', type=int, default=35)
     args = parser.parse_args()
     front_wheels = None
